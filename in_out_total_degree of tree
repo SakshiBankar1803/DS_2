@@ -1,0 +1,79 @@
+//Write a C program that acceptsthe vertices and edges of a graph and store it as an adjacency matrix. 
+//Implement functions to print indegree, outdegree and total degree of all vertices of graph.
+
+#include<stdio.h>
+#include<stdlib.h>
+void indegree(int a[10][10],int n)
+{
+    int i,j,in;
+    for(i=1;i<=n;i++)
+    {
+        in=0;
+        for(j=1;j<=n;j++)
+        {
+            in=in+a[j][i];
+        }
+        printf("indegree of v%d=%d\n",i,in);
+    }
+}
+
+void outdegree(int a[10][10],int n)
+{
+    int i,j,out;
+    for(i=1;i<=n;i++)
+    {
+        out=0;
+        for(j=1;j<=n;j++)
+        {
+            out=out+a[i][j];
+        }
+        printf("outegree of v%d=%d\n",i,out);
+    }
+}
+
+void total(int a[10][10],int n)
+{
+    int i,j,s;
+    for(i=1;i<=n;i++)
+    {
+        s=0;
+        for(j=1;j<=n;j++)
+        {
+            s=s+a[i][j]+a[j][i];
+        }
+        printf("total degree of v%d=%d\n",i,s);
+    }
+}
+
+int main()
+{
+    int n,i,j,a[10][10];
+    printf("enter limit::");
+    scanf("%d",&n);
+    for(i=1;i<=n;i++)
+    {
+        for(j=1;j<=n;j++)
+        {
+            a[i][j]=0;
+            if(i!=j)
+            {
+                printf("enter edge between %d and %d",i,j);
+                scanf("%d",&a[i][j]);
+            }
+        }
+    }
+    indegree(a,n);
+    outdegree(a,n);
+    total(a,n);
+
+    printf("adjecancy matrix=\n");
+    for(i=1;i<=n;i++)
+    printf("\tv%d",i);
+    for(i=1;i<=n;i++)
+    { 
+        printf("\nv%d",i);
+        for(j=1;j<=n;j++)
+        printf("\t%d",a[i][j]);
+    }
+  
+}
