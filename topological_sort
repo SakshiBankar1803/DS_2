@@ -1,0 +1,64 @@
+// Write a C program for the implementation of Topological sorting.
+
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 10
+struct stack
+{
+	int data[MAX];
+	int top;
+}s;
+	int i,n,j,a[10][10];
+    void init()
+	{
+	s.top=-1;
+	}
+	int isempty()
+	{
+	return(s.top==-1);
+	}
+	int isfull()
+	{
+	return(s.top==MAX-1);
+	}
+	void push(int num)
+	{
+	s.top++;
+	s.data[s.top]=num;
+	}
+	int pop()
+	{
+	return(s.data[s.top--]);
+	}
+int topo(int a[4][4], int n)
+{
+	int i,v,j;
+	int visited[10]={0};
+	int ind[10]={0};
+//calculate the indegree
+	for(i=0; i<n; i++)
+	for(j=0; j<n; j++)
+	ind[i] = ind[i] + a[j][i];
+	init();
+while(1)
+{
+	for(i=0; i<n; i++)
+	if( (visited[i]==0) && (ind[i]==0) )
+	{
+	visited[i]=1;
+	push(i);
+	printf("v%d\n", i+1);
+	}
+	if(isempty())
+	break;
+	v = pop();
+	for(j=0; j<n; j++)
+	if(a[v][j]==1)
+	ind[j] = ind[j]-1;//reduce indegrees of adjacent vertices
+}
+}
+int main()
+{
+int a[4][4] ={ {0,0,1,0},{1,0,1,1},{0,0,0,0},{0,0,1,0}};
+topo(a,4);
+}
