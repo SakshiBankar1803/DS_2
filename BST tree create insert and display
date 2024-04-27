@@ -1,0 +1,128 @@
+//BST create insert inorder preorder and postorder
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+//#define memory (struct node*)malloc(sizeof(struct node))
+typedef struct node
+{
+   int data;
+   struct node *left,*right;
+}node;
+
+node *create(node *root)
+{
+  node *newnode,*temp,*parent;
+  int n,i,num;
+  printf("enter limit for tree::");
+  scanf("%d",&n);
+  for(i=0;i<n;i++)
+  {
+    newnode=(node *)malloc(sizeof(node));
+    printf("enter value::");
+    scanf("%d",&newnode->data);
+   // newnode->data=num;
+    newnode->left=newnode->right=NULL;
+    if(root==NULL)
+    {
+        root=temp=newnode;
+        continue;
+    }
+    temp=root;
+    while(temp!=NULL)
+    {
+        parent=temp;
+        if(newnode->data<temp->data)
+          temp=temp->left;
+        else
+         temp=temp->right;
+    }
+    if(newnode->data<parent->data)
+      parent->left=newnode;
+    else 
+      parent->right=newnode;
+  }
+  return root;
+}
+
+void insert(node *root)
+{
+  node *newnode,*temp,*parent;
+  int num;
+  newnode=(node *)malloc(sizeof(node));
+  printf("enter value::");
+  scanf("%d",&num);
+  newnode->data=num;
+  newnode->left=newnode->right=NULL;
+  if(root==NULL)
+  {
+    root=temp=newnode;
+  }
+  temp=root;
+  while(temp!=NULL)
+  {
+    parent=temp;
+    if(num<temp->data)
+     temp=temp->left;
+    else 
+     temp=temp->right;
+  }
+  if(num<parent->data)
+   parent->left=newnode;
+  else 
+   parent->right=newnode;
+}
+
+void inorder(node *root)
+{
+node *temp=root;
+if(temp!=NULL)
+{
+inorder(temp->left);
+printf("%d\t",temp->data);
+inorder(temp->right);
+}
+}
+
+void preorder(node *root)
+{
+    node *temp=root;
+    if(temp!=NULL)
+    {
+        printf("%d\t",temp->data);
+        preorder(temp->left);
+        preorder(temp->right);
+    }
+}
+
+void postorder(node *root)
+{
+    node *temp=root;
+    if(temp!=NULL)
+    {
+        postorder(temp->left);
+        postorder(temp->right);
+        printf("%d\t",temp->data);
+    }
+}
+
+int main()
+{
+    int ch;
+    node *root=NULL;
+    do
+    {
+     printf("\nmenu\n1=create\n2=insert\n3=inorder\n4=preorder\n5=postorder\nenter choice::=\n");
+    scanf("%d",&ch); 
+    switch(ch)
+    {
+        case 1 :root=create(root);break;
+        case 2 :insert(root);break;
+        case 3 :inorder(root);break;
+        case 4 :preorder(root);break;
+        case 5 :postorder(root);break;
+    } /* code */
+    } while (ch<6);
+    
+   
+}
