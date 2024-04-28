@@ -1,0 +1,77 @@
+//Write a program which uses binary search tree library and counts the total nodes and total leaf nodes in the tree.
+//int countLeaf(T) – returns the total number of leaf nodes from BST
+
+#include<stdio.h>
+#include<stdlib.h>
+#define memory (struct node *)malloc(sizeof(struct node))
+typedef struct node
+{
+   int data;
+   struct node *left,*right;
+}Node;
+Node *create(Node *root)
+{
+    Node *newnode,*temp,*parent;
+    int i,n;
+    printf("enter limit::");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        newnode=memory;
+        printf("enter value::");
+        scanf("%d",&newnode->data);
+        newnode->left=newnode->right=NULL;
+        if(root==NULL)
+        {
+          root=newnode;
+          continue;
+        }
+        temp=root;
+        while(temp!=NULL)
+        {
+            parent=temp;
+            if(newnode->data<temp->data)
+             temp=temp->left;
+            else 
+             temp=temp->right;
+        }
+        if(parent->data<newnode->data)
+         parent->left=newnode;
+        else
+         parent->right=newnode;
+    }
+    return root;
+}
+int totalnode(Node *root)
+{    Node *temp=root;
+    static int c=0;
+   
+    if(temp!=NULL)
+    {   c++;
+        totalnode(temp->left);
+        totalnode(temp->right);
+        
+    }
+    return c;
+}
+int leaf(Node *root)
+{  Node *temp=root;
+    static int c=0;
+    
+    if(temp!=NULL)
+    {
+        if((temp->left==NULL) && (temp->right==NULL))
+         c++;
+        leaf(temp->left);
+       leaf(temp->right);
+    }
+    return c;
+}
+int main()
+{
+   int ans,ans1;
+   Node *root=NULL;
+   root=create(root);
+   printf("total node=%d",totalnode(root));
+   printf("\n leaf node=%d",leaf(root));
+}
